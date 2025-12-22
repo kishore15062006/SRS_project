@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import "../components/AttendanceSystem.css"
 
 const AttendanceSystem = () => {
     const [name, setName] = useState("");
@@ -33,10 +34,10 @@ const AttendanceSystem = () => {
   const absent = people.filter(p => p.status === "Absent").length;
 
   return (
-    <div>
+    <div className='attendance-container'>
       <h1>Attendance System</h1>
       <p>Welcome to Attendance System</p>
-
+      <div className='input-section'>
       <input
         type="text"
         placeholder="Enter name"
@@ -45,24 +46,27 @@ const AttendanceSystem = () => {
         onKeyPress={handleKeyPress}
       />
       <button onClick={addPerson}>Add Person</button>
+      </div>
 
-      {people.length === 0 && <p>No people added yet</p>}
+      {people.length === 0 && <p className='no-data'>No people added yet</p>}
 
       <ul>
         {people.map(person => (
           <li key={person.id}>
-            {person.name}
-            <button onClick={() => markStatus(person.id, "Present")}>
+          <span className='person-name'>{person.name}</span>
+            <div className='status-buttons'>
+            <button className="present-btn" onClick={() => markStatus(person.id, "Present")}>
               Present
             </button>
-            <button onClick={() => markStatus(person.id, "Absent")}>
+            <button className="absent-btn" onClick={() => markStatus(person.id, "Absent")}>
               Absent
             </button>
+            </div>
           </li>
         ))}
       </ul>
-
-      <div>
+      
+      <div className='summary'>
         <p>Total: {total}</p>
         <p>Present: {present}</p>
         <p>Absent: {absent}</p>
